@@ -32,17 +32,28 @@ public class ThreadedClient implements Runnable {
             PrintStream out = new PrintStream(socket.getOutputStream());
             Scanner scanner = new Scanner(socket.getInputStream());
             
-            out.println("Hello. Say something.");
-            
+            String requestLine = scanner.nextLine();
+            while(true)
+            {
+                String headerLine = scanner.nextLine();
+                if(headerLine.length() == 0)
+                    break;
+        
+            }
+            out.println("HTTP/1.0 200 OK");
+            out.println();
+            out.println("<html><body>Hello Internet</body></html>");
             out.flush();
+            out.close();
             
+            /*
             String line = scanner.nextLine();
             
             System.out.println(socket.getInetAddress() + line);
             
             out.println(socket.getInetAddress() + line);
             out.flush();
-            
+            */
         } catch (IOException ex) {
             Logger.getLogger(ThreadedClient.class.getName()).log(Level.SEVERE, null, ex);
         }
